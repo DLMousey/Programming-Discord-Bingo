@@ -15,6 +15,8 @@ public class GameButtonsService {
 
     private StringValuesService stringValuesService;
 
+    private int selectedItems = 0;
+
     public GameButtonsService(StringValuesService stringValuesService) {
         this.stringValuesService = stringValuesService;
     }
@@ -44,4 +46,21 @@ public class GameButtonsService {
         return this.gameButtons;
     }
 
+    public void setSelectedItems(int selectedItemsCount) {
+        this.selectedItems = selectedItemsCount;
+    }
+
+    public int getSelectedItems() {
+        return this.selectedItems;
+    }
+
+    public int incrementSelectedItems() {
+        this.selectedItems += 1;
+        return this.selectedItems;
+    }
+
+    public int decrementSelectedItems() {
+        this.selectedItems -= 1;
+        return this.selectedItems;
+    }
 }

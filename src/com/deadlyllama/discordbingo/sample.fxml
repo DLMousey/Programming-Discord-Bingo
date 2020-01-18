@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.ToggleGroup?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.deadlyllama.discordbingo.Controller"
           fx:id="options_gridPane" gridLinesVisible="false" prefWidth="100" maxWidth="Infinity">
     <rowConstraints>
@@ -18,6 +19,9 @@
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" />
     </columnConstraints>
+    <fx:define>
+        <ToggleGroup fx:id="gameButtonToggleGroup" />
+    </fx:define>
     <HBox fx:id="rowFirst_hbox" GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10" alignment="CENTER" />
     <HBox fx:id="rowSecond_hbox" GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="10" alignment="CENTER" />
     <HBox fx:id="rowThird_hbox" GridPane.columnIndex="0" GridPane.rowIndex="2" spacing="10" alignment="CENTER" />

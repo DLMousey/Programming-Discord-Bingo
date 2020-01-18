@@ -2,17 +2,14 @@ package com.deadlyllama.discordbingo;
 
 import com.deadlyllama.discordbingo.services.GameButtonsService;
 import com.deadlyllama.discordbingo.services.StringValuesService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class Controller {
@@ -29,6 +26,7 @@ public class Controller {
     private HBox rowFourth_hbox;
 
     protected StringValuesService stringValuesService = new StringValuesService();
+    protected GameButtonsService gameButtonsService = new GameButtonsService(this.stringValuesService);
 
     public void initialize() {
         this.initialiseGameBoard();
@@ -45,13 +43,17 @@ public class Controller {
     }
 
     private void initialiseGameBoard() {
-        GameButtonsService gameButtonsService = new GameButtonsService(this.stringValuesService);
-        gameButtonsService.initialiseLabels();
-        gameButtonsService.initialiseGameButtons();
+        this.gameButtonsService.initialiseLabels();
+        this.gameButtonsService.initialiseGameButtons();
 
         ArrayList<ToggleButton> buttons = gameButtonsService.getGameButtons();
 
         Double longestWidth = 0d;
+
+        for(ToggleButton button : buttons) {
+            button.setOnAction(this::onButtonClick);
+        }
+
         for (int i = 0; i < buttons.size(); i++) {
             rowFirst_hbox.getChildren().add(buttons.get(i));
 
@@ -77,5 +79,21 @@ public class Controller {
                 buttons.get(i).setPrefWidth(longestWidth);
             }
         }
+
+    }
+
+    private void onButtonClick(ActionEvent event) {
+        ToggleButton button = (ToggleButton) event.getSource();
+        if (button.isSelected()) {
+            this.gameButtonsService.incrementSelectedItems();
+        } else {
+            this.gameButtonsService.decrementSelectedItems();
+        }
+
+        HBox parentHbox = (HBox) button.getParent();
+
+        System.out.println(button.getText() + " was clicked, selected? : " + button.isSelected());
+        System.out.println("Button parent: " + parentHbox.getId() + " pos: " + parentHbox.getChildren().indexOf(button));
+        System.out.println("Selected items: " + this.gameButtonsService.getSelectedItems());
     }
 }
