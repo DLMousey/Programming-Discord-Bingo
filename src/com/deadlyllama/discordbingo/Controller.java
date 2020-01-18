@@ -1,5 +1,6 @@
 package com.deadlyllama.discordbingo;
 
+import com.deadlyllama.discordbingo.services.GameButtonsService;
 import com.deadlyllama.discordbingo.services.StringValuesService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -11,15 +12,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class Controller {
 
     @FXML
-    public Label selectedLabel;
-
-    @FXML
-    private BorderPane layout_borderPane;
+    public Button newGameButton;
     @FXML
     private HBox rowFirst_hbox;
     @FXML
@@ -28,49 +27,44 @@ public class Controller {
     private HBox rowThird_hbox;
     @FXML
     private HBox rowFourth_hbox;
-    @FXML
-    private GridPane options_gridPane;
 
     protected StringValuesService stringValuesService = new StringValuesService();
 
     public void initialize() {
-        ArrayList<String> options = stringValuesService.getOptions();
+        this.initialiseGameBoard();
+    }
 
-        String lastPosition = rowFirst_hbox.getId();
-        String nextPosition = rowSecond_hbox.getId();
+    @FXML
+    public void newGame() {
+        this.rowFirst_hbox.getChildren().clear();
+        this.rowSecond_hbox.getChildren().clear();
+        this.rowThird_hbox.getChildren().clear();
+        this.rowFourth_hbox.getChildren().clear();
 
-        ArrayList<ToggleButton> buttons = new ArrayList<>();
-        for (String option : options) {
-            ToggleButton button = new ToggleButton();
-            button.setText(option);
-            button.setMaxWidth(Double.MAX_VALUE);
-            button.setPadding(new Insets(10, 10, 10, 10));
-            button.setOnMouseClicked();
-            HBox.setHgrow(button, Priority.ALWAYS);
-            buttons.add(button);
-        }
+        this.initialiseGameBoard();
+    }
+
+    private void initialiseGameBoard() {
+        GameButtonsService gameButtonsService = new GameButtonsService(this.stringValuesService);
+        gameButtonsService.initialiseLabels();
+        gameButtonsService.initialiseGameButtons();
+
+        ArrayList<ToggleButton> buttons = gameButtonsService.getGameButtons();
 
         Double longestWidth = 0d;
         for (int i = 0; i < buttons.size(); i++) {
             rowFirst_hbox.getChildren().add(buttons.get(i));
-            String firstVal = options.get(i);
-            String secVal;
-            String thirVal;
-            String fourVal;
 
             if (i + 1 <= buttons.size() - 1) {
                 rowSecond_hbox.getChildren().add(buttons.get(i + 1));
-                secVal = options.get(i);
             }
 
             if (i + 2 <= buttons.size() - 1) {
                 rowThird_hbox.getChildren().add(buttons.get(i + 2));
-                thirVal = options.get(i);
             }
 
             if (i + 3 <= buttons.size() - 1) {
                 rowFourth_hbox.getChildren().add(buttons.get(i + 3));
-                fourVal = options.get(i);
             }
 
             if (i + 3  <= buttons.size() - 1) {
@@ -83,13 +77,5 @@ public class Controller {
                 buttons.get(i).setPrefWidth(longestWidth);
             }
         }
-
-
-//        options.forEach((o) -> {
-//            Button optionButton = new Button();
-//            optionButton.setText(o);
-//
-//            layout_borderPane.getCenter().get
-//        });
     }
 }

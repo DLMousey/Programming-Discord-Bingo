@@ -1,6 +1,7 @@
 package com.deadlyllama.discordbingo.services;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class StringValuesService {
 
@@ -8,6 +9,15 @@ public class StringValuesService {
 
     public ArrayList<String> getOptions() {
         return options;
+    }
+
+    public ArrayList<String> getGameOptions() {
+        ArrayList<String> gameOptions = new ArrayList<>();
+        for (int i = 0; i <= 16; i++) {
+            addRandomValue(gameOptions);
+        }
+
+        return gameOptions;
     }
 
     public Boolean addOption(String option) {
@@ -23,5 +33,17 @@ public class StringValuesService {
         }
 
         return false;
+    }
+
+    private void addRandomValue(ArrayList<String> gameOptions) {
+        Random r = new Random();
+        Integer randomInt = r.nextInt(options.size() -1) + 1;
+        String randomValue = options.get(randomInt);
+
+        if (gameOptions.indexOf(randomValue) == -1) {
+            gameOptions.add(randomValue);
+        } else {
+            addRandomValue(gameOptions);
+        }
     }
 }

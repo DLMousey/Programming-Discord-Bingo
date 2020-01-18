@@ -22,4 +22,7 @@
     <HBox fx:id="rowSecond_hbox" GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="10" alignment="CENTER" />
     <HBox fx:id="rowThird_hbox" GridPane.columnIndex="0" GridPane.rowIndex="2" spacing="10" alignment="CENTER" />
     <HBox fx:id="rowFourth_hbox" GridPane.columnIndex="0" GridPane.rowIndex="3" spacing="10" alignment="CENTER" />
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="4" spacing="10" alignment="CENTER">
+        <Button fx:id="newGameButton" text="New Game" onMouseClicked="#newGame" />
+    </HBox>
 </GridPane>
