@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.deadlyllama.discordbingo.Controller"
-          fx:id="options_gridPane" gridLinesVisible="true" prefWidth="100" maxWidth="Infinity">
+          fx:id="options_gridPane" gridLinesVisible="false" prefWidth="100" maxWidth="Infinity">
     <rowConstraints>
         <RowConstraints vgrow="ALWAYS" />
         <RowConstraints vgrow="ALWAYS" />
@@ -23,6 +23,9 @@
     <HBox fx:id="rowThird_hbox" GridPane.columnIndex="0" GridPane.rowIndex="2" spacing="10" alignment="CENTER" />
     <HBox fx:id="rowFourth_hbox" GridPane.columnIndex="0" GridPane.rowIndex="3" spacing="10" alignment="CENTER" />
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="4" spacing="10" alignment="CENTER">
+        <padding>
+            <Insets top="10" left="10" bottom="10" right="10" />
+        </padding>
         <Button fx:id="newGameButton" text="New Game" onMouseClicked="#newGame" />
     </HBox>
 </GridPane>

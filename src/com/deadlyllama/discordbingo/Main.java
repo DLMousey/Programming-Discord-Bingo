@@ -39,7 +39,6 @@ public class Main extends Application {
             Platform.exit();
         }
 
-        System.out.println(stringValuesService.getOptions().size());
         launch(args);
     }
 }
