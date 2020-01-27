@@ -60,4 +60,22 @@ Using the wrong channel
 Remote for first dev job
 But i've never done ...
 Kali Linux
-Butthurt Admin
+Code screenshot
+Picture of code on monitor
+Wall of text
+Hasn't read the errors
+Hasn't googled the problem
+Need to learn fast
+Interview for language they don't know
+Rate limiting
+Zero context question
+Code dump
+Brain dump
+SQLi vuln
+XSS vuln
+CSRF vuln
+Exposed secrets
+Bad spelling
+Bad grammar
+Weeb
+@role ping
