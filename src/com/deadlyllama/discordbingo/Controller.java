@@ -32,6 +32,7 @@ public class Controller {
     protected GameButtonsService gameButtonsService = new GameButtonsService(this.stringValuesService);
 
     private Map<Integer, List<Integer>> selectedMap = new HashMap<>();
+    private HashMap<Integer, Boolean> selectedMatches = new HashMap<>();
 
     public void initialize() {
         this.initialiseGameBoard();
@@ -48,6 +49,7 @@ public class Controller {
     }
 
     private void initialiseGameBoard() {
+        selectedMatches.clear();
         selectedMap.clear();
 
         this.gameButtonsService.initialiseLabels();
@@ -57,6 +59,11 @@ public class Controller {
         selectedMap.put(1, new ArrayList<>());
         selectedMap.put(2, new ArrayList<>());
         selectedMap.put(3, new ArrayList<>());
+
+        selectedMatches.put(0, false);
+        selectedMatches.put(1, false);
+        selectedMatches.put(2, false);
+        selectedMatches.put(3, false);
 
         ArrayList<ToggleButton> buttons = gameButtonsService.getGameButtons();
 
@@ -137,8 +144,52 @@ public class Controller {
         for (int i = 0; i < 4; i++) {
             List<Integer> rowValues = selectedMap.get(i);
             if (rowValues.size() == 4) {
-                System.out.println("BINGO!");
+                System.out.println("BINGO! ROW VICTORY");
             }
+        }
+
+        if (row == 0) {
+            selectedMatches.put(0, button.isSelected());
+            for (int i = 1; i < 4; i++) {
+                List<Integer> rowValues = selectedMap.get(i);
+                if (rowValues.indexOf(column) == -1) {
+                    selectedMatches.put(i, false);
+                } else {
+                    selectedMatches.put(i, true);
+                }
+            }
+        } else if (row > 0 && row < 3) {
+            Integer remainingIterations = 4 - row;
+            selectedMatches.put(column, button.isSelected());
+            for (int i = column; i < remainingIterations; i++) {
+                List<Integer> rowValues = selectedMap.get(i);
+                Integer contains = rowValues.indexOf(column);
+
+                if (rowValues.indexOf(column) == -1) {
+                    selectedMatches.put(i, false);
+                } else {
+                    selectedMatches.put(i, true);
+                }
+
+                remainingIterations--;
+            }
+
+            // Go back to zero
+            // Work up until we reach the row that contains the selected button
+            for (int i = 0; i <= row; i++) {
+                List<Integer> rowValues = selectedMap.get(i);
+                if (rowValues.indexOf(column) == -1) {
+                    selectedMatches.put(i, false);
+                } else {
+                    selectedMatches.put(i, true);
+                }
+            }
+        } else {
+            selectedMatches.put(3, button.isSelected());
+        }
+
+        if (selectedMatches.get(0) && selectedMatches.get(1) && selectedMatches.get(2) && selectedMatches.get(3)) {
+            System.out.println("BINGO! COLUMN VICTORY!");
         }
     }
 }
